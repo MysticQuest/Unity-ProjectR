@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    private IMoveVelocity moveVelocity;
+    private IMoveVelocity moveInterface;
+    private Vector3 moveVector;
 
     float moveX = 0f;
     float moveY = 0f;
 
     private void Awake()
     {
-        moveVelocity = GetComponent<IMoveVelocity>();
+        moveInterface = GetComponent<IMoveVelocity>();
+        moveVector = new Vector3(moveX, moveY);
     }
 
     private void Update()
@@ -24,7 +26,9 @@ public class PlayerInput : MonoBehaviour
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
 
-        Vector2 moveVector = new Vector2(moveX, moveY).normalized;
-        moveVelocity.SetVelocity(moveVector);
+        moveVector.x = moveX;
+        moveVector.y = moveY;
+
+        moveInterface.SetVelocity(moveVector);
     }
 }
