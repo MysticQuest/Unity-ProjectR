@@ -6,6 +6,7 @@ using Utility;
 public class PlayerInputMouse : MonoBehaviour
 {
     private MoveToPositionDirect moveTo;
+    public RaycastHit hitInfo;
 
     private void Awake()
     {
@@ -16,10 +17,6 @@ public class PlayerInputMouse : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-<<<<<<< HEAD
-=======
-            moveTo.wasUpdated = true;
->>>>>>> pandora
             moveTo.SetMovePosition(Utilities.GetMousePosition());
         }
     }

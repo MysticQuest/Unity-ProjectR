@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveVelocity : MonoBehaviour, IMoveVelocity
+public class MoveVelocity : MonoBehaviour, IMoveVector
 {
     [SerializeField] private float moveSpeed = 5f;
 
@@ -16,9 +16,9 @@ public class MoveVelocity : MonoBehaviour, IMoveVelocity
         // anim = GetComponent<Character_Base>();
     }
 
-    public void SetVelocity(Vector3 velocityVector)
+    public void SetVector(Vector3 keyVector, Vector3 mouseVector)
     {
-        this.velocityVector = velocityVector;
+        this.velocityVector = keyVector.normalized;
     }
 
     private void FixedUpdate()

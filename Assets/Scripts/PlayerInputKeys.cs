@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInputKeys : MonoBehaviour
 {
-    private IMoveVelocity moveInterface;
+    private IMoveVector moveInterface;
     private Vector3 moveVector;
 
     float moveX = 0f;
@@ -12,7 +12,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Awake()
     {
-        moveInterface = GetComponent<IMoveVelocity>();
+        moveInterface = GetComponent<IMoveVector>();
         moveVector = new Vector3(moveX, moveY);
     }
 
@@ -29,6 +29,6 @@ public class PlayerInput : MonoBehaviour
         moveVector.x = moveX;
         moveVector.y = moveY;
 
-        moveInterface.SetVelocity(moveVector);
+        moveInterface.SetVector(moveVector, Vector3.zero);
     }
 }

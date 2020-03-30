@@ -4,26 +4,19 @@ using UnityEngine;
 
 public class MoveToPositionDirect : MonoBehaviour
 {
+    private IMoveVector moveInterface;
+
     private Vector3 movePosition;
-    private IMoveVelocity moveInterface;
-    public bool wasUpdated = false;
-    public void SetMovePosition(Vector3 movePosition)
-    {
-        this.movePosition = movePosition;
-        moveInterface.SetVelocity(movePosition);
-    }
 
     private void Start()
     {
-        moveInterface = GetComponent<IMoveVelocity>();
+        moveInterface = GetComponent<IMoveVector>();
     }
 
-    // Update is called once per frame
-    // private void Update()
-    // {
-    //     Vector3 moveTo = (movePosition - transform.position);
-    //     // Debug.Log(Vector3.Distance(movePosition, this.transform.position));
-    //     // if (Vector3.Distance(movePosition, this.transform.position) > 0.01f)
-    //     moveInterface.SetVelocity(movePosition);
-    // }
+    public void SetMovePosition(Vector3 movePosition)
+    {
+        this.movePosition = movePosition;
+        moveInterface.SetVector(Vector3.zero, movePosition);
+    }
+
 }
