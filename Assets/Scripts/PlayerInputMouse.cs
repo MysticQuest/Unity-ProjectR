@@ -16,6 +16,10 @@ public class PlayerInputMouse : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
+<<<<<<< HEAD
+=======
+            moveTo.wasUpdated = true;
+>>>>>>> pandora
             moveTo.SetMovePosition(Utilities.GetMousePosition());
         }
     }

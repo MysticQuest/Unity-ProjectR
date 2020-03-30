@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MoveVelocity : MonoBehaviour, IMoveVelocity
 {
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeed = 5f;
 
     private Vector3 velocityVector;
     private Rigidbody2D rbody;
-    // private Character_Base characterBase; animation stuff
+    // private anim characterBase; animation stuff
 
     private void Awake()
     {
         rbody = GetComponent<Rigidbody2D>();
-        // characterBase = GetComponent<Character_Base>();
+        // anim = GetComponent<Character_Base>();
     }
 
     public void SetVelocity(Vector3 velocityVector)
@@ -24,6 +24,6 @@ public class MoveVelocity : MonoBehaviour, IMoveVelocity
     private void FixedUpdate()
     {
         rbody.velocity = velocityVector * moveSpeed;
-        // characterBase.PlayMoveAnim(velocityVector);
+        // anim.PlayMoveAnim(velocityVector);
     }
 }
