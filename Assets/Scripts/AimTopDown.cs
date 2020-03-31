@@ -14,21 +14,12 @@ public class AimTopDown : MonoBehaviour
     private bool isPlayer = false;
 
     private float angle;
-    private Vector3 rotationVector;
 
-    private Vector3 lookDir;
-    private Vector3 weaponDir;
+    private Transform mainBody;
 
     private void Awake()
     {
-        rotationVector = Vector3.zero;
-        lookDir = Vector3.one;
-        weaponDir = Vector3.one;
-
-        if (objectThatAims == null || aimTarget == null && this.name != "Player")
-        {
-            Debug.LogError("Please assign an object to rotate/target for " + this);
-        }
+        mainBody = transform.Find("main");
 
         if (this.name == "Player")
         {
@@ -53,19 +44,23 @@ public class AimTopDown : MonoBehaviour
             aimTargetTransform = aimTarget.transform.position;
         }
 
+
         aimDirection = (aimTargetTransform - transform.position).normalized;
         angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        Vector3 rotationVector = Vector3.zero;
         rotationVector.z = angle;
         objectThatAims.eulerAngles = rotationVector;
     }
 
     private void Flip()
     {
-        lookDir.x = Mathf.Sign(aimTargetTransform.x);
+        Vector3 lookDir = Vector3.one;
+        lookDir.x = Mathf.Sign(aimTargetTransform.x - transform.position.x);
         if (lookDir.x == 0) { return; }
-        transform.localScale = lookDir;
+        mainBody.localScale = lookDir;
 
-        weaponDir.x = weaponDir.y = lookDir.x;
-        objectThatAims.transform.localScale = weaponDir;
+        Vector3 weaponDir = Vector3.one;
+        weaponDir.y = lookDir.x;
+        objectThatAims.localScale = weaponDir;
     }
 }
