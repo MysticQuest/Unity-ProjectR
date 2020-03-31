@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveToPositionDirect : MonoBehaviour
+public class GoToTarget : MonoBehaviour
 {
     private IMoveVector moveInterface;
 

@@ -5,12 +5,12 @@ using Utility;
 
 public class PlayerInputMouse : MonoBehaviour
 {
-    private MoveToPositionDirect moveTo;
+    private GoToTarget moveTo;
     public RaycastHit hitInfo;
 
     private void Awake()
     {
-        moveTo = GetComponent<MoveToPositionDirect>();
+        moveTo = GetComponent<GoToTarget>();
     }
 
     private void Update()
