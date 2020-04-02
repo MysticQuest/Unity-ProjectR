@@ -5,23 +5,27 @@ using UnityEngine;
 public class PlayerInputKeys : MonoBehaviour
 {
     private IMoveVector moveInterface;
+    private AnimationControl animControl;
     private Vector3 moveVector;
 
     float moveX = 0f;
     float moveY = 0f;
 
+    private bool isMoving;
+
     private void Awake()
     {
         moveInterface = GetComponent<IMoveVector>();
+        animControl = GetComponent<AnimationControl>();
         moveVector = new Vector3(moveX, moveY);
     }
 
     private void Update()
     {
-        Walk();
+        Move();
     }
 
-    private void Walk()
+    private void Move()
     {
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
