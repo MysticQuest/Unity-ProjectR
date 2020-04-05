@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class AnimationControl : MonoBehaviour
 {
-    public Animator anim;
+    private Animator charAnimator;
+    private Transform aimTransform;
+    private Animator aimAnimator;
 
-    void Start()
+    private void Awake()
     {
-
-    }
-
-    void Update()
-    {
-
+        charAnimator = GetComponent<Animator>();
+        aimTransform = transform.Find("Aim");
+        aimAnimator = aimTransform.GetComponent<Animator>();
     }
 
     public void isMoving()
     {
-        anim.SetBool("isMoving", true);
+        charAnimator.SetBool("isMoving", true);
     }
 
     public void isIdle()
     {
-        anim.SetBool("isMoving", false);
+        charAnimator.SetBool("isMoving", false);
     }
+
+    public void isShooting()
+    {
+        aimAnimator.SetTrigger("Shoot");
+    }
+
 }

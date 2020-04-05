@@ -6,14 +6,23 @@ public class Shoot : MonoBehaviour
 {
 
     [SerializeField] private Transform pfBullet;
+    private AnimationControl animControl;
 
     private void Awake()
     {
-
+        animControl = GetComponent<AnimationControl>();
     }
 
-    private void shoot()
+    private void Update()
     {
+        HandleShooting();
+    }
 
+    private void HandleShooting()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            animControl.isShooting();
+        }
     }
 }
