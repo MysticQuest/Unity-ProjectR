@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fdb4fdcb6d6f6244b15da15a183f8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectThatAims: {fileID: 1419378525}
+  objectThatAims: {fileID: 0}
   aimTarget: {fileID: 0}
 --- !u!95 &576133880
 Animator:
@@ -419,6 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefdea92fb162764f8e5036ea3be4a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectThatAims: {fileID: 0}
 --- !u!114 &576133882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b28a34873b42a94f9397fdd6a838907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfBullet: {fileID: 0}
+  gunEndPointTransform: {fileID: 0}
 --- !u!1 &784252655
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +536,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &956828162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 956828163}
+  m_Layer: 0
+  m_Name: endPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &956828163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956828162}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.946, y: -0.015, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1419378525}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &1057674068
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -607,7 +638,7 @@ GameObject:
   - component: {fileID: 1303227548}
   - component: {fileID: 1303227547}
   m_Layer: 0
-  m_Name: shootEffect2_0
+  m_Name: shootEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -773,7 +804,7 @@ GameObject:
   - component: {fileID: 1419378525}
   - component: {fileID: 1419378526}
   m_Layer: 0
-  m_Name: Aim
+  m_Name: aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -793,6 +824,7 @@ Transform:
   - {fileID: 1824949108}
   - {fileID: 1396094938}
   - {fileID: 1303227548}
+  - {fileID: 956828163}
   m_Father: {fileID: 576133875}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

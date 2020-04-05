@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class AnimationControl : MonoBehaviour
 {
+    [SerializeField] private Transform objectThatAims;
+
     private Animator charAnimator;
-    private Transform aimTransform;
     private Animator aimAnimator;
 
     private void Awake()
     {
+        if (!objectThatAims)
+        {
+            objectThatAims = transform.Find("aim");
+        }
+
         charAnimator = GetComponent<Animator>();
-        aimTransform = transform.Find("Aim");
-        aimAnimator = aimTransform.GetComponent<Animator>();
+        aimAnimator = objectThatAims.GetComponent<Animator>();
     }
 
     public void isMoving()

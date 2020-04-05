@@ -19,7 +19,12 @@ public class AimTopDown : MonoBehaviour
 
     private void Awake()
     {
-        mainBody = transform.Find("main");
+        mainBody = transform.Find("main"); //used only in the flip placeholder function
+
+        if (!objectThatAims)
+        {
+            objectThatAims = transform.Find("aim");
+        }
 
         if (this.name == "Player")
         {
