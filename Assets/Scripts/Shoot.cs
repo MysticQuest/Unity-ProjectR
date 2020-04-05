@@ -7,8 +7,8 @@ using Utility;
 public class Shoot : MonoBehaviour
 {
 
-    public event EventHandler<onShootEventArgs> OnShoot;
-    public class onShootEventArgs : EventArgs
+    public event EventHandler<OnShootEventArgs> OnShoot;
+    public class OnShootEventArgs : EventArgs
     {
         public Vector3 gunEndPointPosition;
         public Vector3 shootPosition;
@@ -39,7 +39,7 @@ public class Shoot : MonoBehaviour
         {
             animControl.isShooting();
 
-            OnShoot?.Invoke(this, new onShootEventArgs
+            OnShoot?.Invoke(this, new OnShootEventArgs
             {
                 gunEndPointPosition = gunEndPointTransform.position,
                 shootPosition = Utilities.GetMousePosition()
