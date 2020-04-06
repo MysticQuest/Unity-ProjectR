@@ -7,7 +7,6 @@ namespace Utility
 {
     public static class Utilities
     {
-
         //get mouse position
         public static Vector3 GetMousePosition()
         {
@@ -31,5 +30,6 @@ namespace Utility
             lastCameraMovement = randomMovement;
             // return timer <= 0f;
         }
+
     }
 }

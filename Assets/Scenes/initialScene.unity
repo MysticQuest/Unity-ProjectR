@@ -664,12 +664,12 @@ GameObject:
   - component: {fileID: 576133875}
   - component: {fileID: 576133880}
   - component: {fileID: 576133878}
+  - component: {fileID: 576133883}
   - component: {fileID: 576133877}
   - component: {fileID: 576133876}
   - component: {fileID: 576133879}
   - component: {fileID: 576133881}
   - component: {fileID: 576133882}
-  - component: {fileID: 576133883}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
