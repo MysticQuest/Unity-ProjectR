@@ -15,6 +15,7 @@ public class Shoot : MonoBehaviour
     }
 
     public Transform gunEndPointTransform;
+    public ParticleSystem bulletFX;
 
     private AnimationControl animControl;
 
@@ -25,6 +26,7 @@ public class Shoot : MonoBehaviour
             gunEndPointTransform = transform.Find("aim/endPoint");
         }
 
+        bulletFX = transform.Find("aim/gun/bulletFX").GetComponent<ParticleSystem>();
         animControl = GetComponent<AnimationControl>();
     }
 
