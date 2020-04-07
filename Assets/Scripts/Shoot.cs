@@ -19,6 +19,12 @@ public class Shoot : MonoBehaviour
 
     private AnimationControl animControl;
 
+    [Header("Crosshair Options")]
+    [SerializeField] private bool EnableCrosshair;
+    [SerializeField] private Texture2D cursorTexture;
+    private CursorMode cursorMode = CursorMode.Auto;
+    private Vector2 hotSpot = Vector2.zero;
+
     private void Awake()
     {
         if (!gunEndPointTransform)
@@ -26,8 +32,15 @@ public class Shoot : MonoBehaviour
             gunEndPointTransform = transform.Find("aim/endPoint");
         }
 
-        bulletFX = transform.Find("aim/gun/bulletFX").GetComponent<ParticleSystem>();
         animControl = GetComponent<AnimationControl>();
+        bulletFX = transform.Find("aim/gun/bulletFX").GetComponent<ParticleSystem>();
+
+        if (EnableCrosshair)
+        {
+            hotSpot = new Vector2(cursorTexture.width / 2f, cursorTexture.height / 2f);
+            // hotSpot = new Vector2(width, height);
+            Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+        }
     }
 
     private void Update()
@@ -48,4 +61,15 @@ public class Shoot : MonoBehaviour
             });
         }
     }
+
+    // public void DoEmit()
+    // {
+    //     // Any parameters we assign in emitParams will override the current system's when we call Emit.
+    //     // Here we will override the start color and size.
+    //     var emitParams = new ParticleSystem.EmitParams();
+    //     emitParams.startColor = Color.red;
+    //     emitParams.position = gunEndPointTransform.position;
+
+    //     bulletFXpart.Emit(emitParams, 1);
+    // }
 }
