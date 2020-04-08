@@ -48,10 +48,27 @@ public class test : MonoBehaviour
     private void WeaponTracer(Vector3 fromPosition, Vector3 targetPosition)
     {
         Vector3 dir = (targetPosition - fromPosition).normalized;
+
         float eulerZ = Utilities.GetAngleFromVectorFloat(dir) - 90f;
         float distance = Vector3.Distance(fromPosition, targetPosition);
         Vector3 tracerSpawnPosition = fromPosition + dir * distance * 0.5f;
-        World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition, eulerZ, .3f, distance, weaponTracerMaterial, null, 10000);
+
+        Material tmpWeaponTracerMaterial = new Material(weaponTracerMaterial);
+        tmpWeaponTracerMaterial.SetTextureScale("_MainTex", new Vector2(1f, (distance / 190f)));
+
+        World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition, eulerZ, .2f, distance, weaponTracerMaterial, null, 10000);
+
+        float timer = 0.1f;
+        FunctionUpdater.Create(() =>
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                worldMesh.DestroySelf();
+                return true;
+            }
+            return false;
+        });
     }
 }
 
