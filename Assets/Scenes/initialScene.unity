@@ -4036,6 +4036,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerShoot: {fileID: 576133882}
+  particleUVPixelsArray:
+  - uv00Pixels: {x: 0, y: 0}
+    uv11Pixels: {x: 10, y: 20}
 --- !u!23 &2126083345
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4055,7 +4058,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6242a0cec3aa21e4fbbf678513b3457d, type: 2}
+  - {fileID: 2100000, guid: 558caa5480e59a742827425944323af1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

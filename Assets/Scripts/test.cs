@@ -7,7 +7,6 @@ using CodeMonkey.Utils;
 
 public class test : MonoBehaviour
 {
-    // public CinemachineImpulseSource impulseSource;
     [SerializeField] private Shoot playerShoot;
     [SerializeField] private Material weaponTracerMaterial;
 

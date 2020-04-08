@@ -27,7 +27,7 @@ public class MeshParticleSystem : MonoBehaviour
     [SerializeField] private Shoot playerShoot;
 
     [SerializeField] private ParticleUVPixels[] particleUVPixelsArray;
-    private UVCoords uvCoordsArray;
+    private UVCoords[] uvCoordsArray;
 
     private Mesh mesh;
 
@@ -78,22 +78,23 @@ public class MeshParticleSystem : MonoBehaviour
         Vector3 quadSize = new Vector3(.5f, 1f);
         float rotation = 0f;
 
-        int spawnedQuadIndex = AddQuad(quadPosition, rotation, quadSize, true);
+        int uvIndex = UnityEngine.Random.Range(0, 8);
+        int spawnedQuadIndex = AddQuad(quadPosition, rotation, quadSize, true, uvIndex);
 
         FunctionUpdater.Create(() =>
         {
             quadPosition += new Vector3(1, 1) * Time.deltaTime;
             quadSize += new Vector3(1, 1) * Time.deltaTime;
             rotation += 360f * Time.deltaTime;
-            UpdateQuad(spawnedQuadIndex, quadPosition, rotation, quadSize, true);
+            UpdateQuad(spawnedQuadIndex, quadPosition, rotation, quadSize, true, uvIndex);
         });
     }
 
-    private int AddQuad(Vector3 position, float rotation, Vector3 quadSize, bool skewed)
+    private int AddQuad(Vector3 position, float rotation, Vector3 quadSize, bool skewed, int uvIndex)
     {
         if (quadIndex >= MAX_QUAD_AMOUNT) return 0; //mesh full
 
-        UpdateQuad(quadIndex, position, rotation, quadSize, skewed);
+        UpdateQuad(quadIndex, position, rotation, quadSize, skewed, uvIndex);
 
         int spawnedQuadIndex = quadIndex;
         quadIndex++;
@@ -101,7 +102,7 @@ public class MeshParticleSystem : MonoBehaviour
         return spawnedQuadIndex;
     }
 
-    public void UpdateQuad(int quadIndex, Vector3 position, float rotation, Vector3 quadSize, bool skewed)
+    public void UpdateQuad(int quadIndex, Vector3 position, float rotation, Vector3 quadSize, bool skewed, int uvIndex)
     {
         //relocate vertices
         int vIndex = quadIndex * 4;
@@ -126,10 +127,11 @@ public class MeshParticleSystem : MonoBehaviour
         }
 
         //UV
-        uv[vIndex0] = new Vector2(0, 0);
-        uv[vIndex1] = new Vector2(0, 1);
-        uv[vIndex2] = new Vector2(1, 1);
-        uv[vIndex3] = new Vector2(1, 0);
+        UVCoords uvCoords = uvCoordsArray[uvIndex];
+        uv[vIndex0] = uvCoords.uv00;
+        uv[vIndex1] = new Vector2(uvCoords.uv00.x, uvCoords.uv11.y);
+        uv[vIndex2] = uvCoords.uv11;
+        uv[vIndex3] = new Vector2(uvCoords.uv11.x, uvCoords.uv00.y);
 
         //create triangles
         int tIndex = quadIndex * 6;
