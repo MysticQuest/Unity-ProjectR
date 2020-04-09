@@ -37,6 +37,9 @@ public class test : MonoBehaviour
         if (traceHandle == 0)
         {
             WeaponTracer(e.gunEndPointPosition, e.shootPosition);
+
+            Vector3 shootDirection = (e.shootPosition - e.gunEndPointPosition).normalized;
+            BulletRaycast.ShootRay(e.gunEndPointPosition, shootDirection);
         }
         else
         {

@@ -33,7 +33,7 @@ public class Shoot : MonoBehaviour
         }
 
         animControl = GetComponent<AnimationControl>();
-        bulletFX = transform.Find("aim/gun/bulletFX").GetComponent<ParticleSystem>();
+        bulletFX = transform.Find("aim/gun/mask/bulletFX").GetComponent<ParticleSystem>();
 
         if (EnableCrosshair)
         {
