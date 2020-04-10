@@ -10,12 +10,11 @@ public class test : MonoBehaviour
     [SerializeField] private Shoot playerShoot;
     [SerializeField] private Material weaponTracerMaterial;
 
-
-    public enum TraceHandle
+    public enum TraceOption
     {
         Mesh, particles
     }
-    public TraceHandle traceHandle;
+    public TraceOption traceOption;
 
     private CinemachineImpulseSource impulseSource;
 
@@ -32,14 +31,16 @@ public class test : MonoBehaviour
     private void Player_OnShoot(object sender, Shoot.OnShootEventArgs e)
     {
         impulseSource.GenerateImpulse();
-        // Debug.DrawLine(e.gunEndPointPosition, e.shootPosition, Color.white, .1f);
 
-        if (traceHandle == 0)
+        //mesh or vfx
+        if (traceOption == 0)
         {
-            WeaponTracer(e.gunEndPointPosition, e.shootPosition);
-
-            Vector3 shootDirection = (e.shootPosition - e.gunEndPointPosition).normalized;
+            Vector2 shootDirection = (e.shootPosition - e.gunEndPointPosition).normalized;
             BulletRaycast.ShootRay(e.gunEndPointPosition, shootDirection);
+
+            WeaponTracer(e.gunEndPointPosition, BulletRaycast.rayEndPoint);
+
+            // Debug.DrawLine(e.gunEndPointPosition, BulletRaycast.rayEndPoint, Color.white, 1);
         }
         else
         {
@@ -49,10 +50,13 @@ public class test : MonoBehaviour
 
     private void WeaponTracer(Vector3 fromPosition, Vector3 targetPosition)
     {
+        float distanceOffset = 0.3f;
+
         Vector3 dir = (targetPosition - fromPosition).normalized;
 
         float eulerZ = Utilities.GetAngleFromVectorFloat(dir) - 90f;
         float distance = Vector3.Distance(fromPosition, targetPosition);
+        distance = distance + distanceOffset;
         Vector3 tracerSpawnPosition = fromPosition + dir * distance * 0.5f;
 
         Material tmpWeaponTracerMaterial = new Material(weaponTracerMaterial);

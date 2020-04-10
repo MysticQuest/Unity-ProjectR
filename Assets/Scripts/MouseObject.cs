@@ -7,6 +7,6 @@ public class MouseObject : MonoBehaviour
 {
     void Update()
     {
-        transform.position = Utilities.GetMousePosition() * 0.8f;
+        transform.position = Utilities.GetMousePosition();
     }
 }
