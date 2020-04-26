@@ -17,6 +17,19 @@ public class Target : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        Damage();
+        Debug.Log("Collided with Object");
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Damage();
+        Debug.Log("Collided with Particle");
+    }
+
+
     public void Damage()
     {
         health -= 5;

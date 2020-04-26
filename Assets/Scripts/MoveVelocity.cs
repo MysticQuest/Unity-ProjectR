@@ -33,6 +33,8 @@ public class MoveVelocity : MonoBehaviour, IMoveVector
         rbody.velocity = velocityVector * moveSpeed;
     }
 
+    // for idle and movement animations
+
     private void DetectMovement()
     {
         if (velocityVector != Vector3.zero)

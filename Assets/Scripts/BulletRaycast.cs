@@ -8,7 +8,7 @@ public static class BulletRaycast
 
     public static void ShootRay(Vector3 shootPosition, Vector3 shootDirection)
     {
-        float distance = 10f;
+        float distance = 15f;
         int layerMask = ~(LayerMask.GetMask("Player"));
 
         DoRaycast(shootPosition, shootDirection, distance, layerMask);
