@@ -32,6 +32,10 @@ public class Target : MonoBehaviour
 
     public void Damage()
     {
+        float bloodRotation = Random.Range(-45f, 45f);
+        Vector3 bloodDir = Quaternion.Euler(0, 0, bloodRotation) * -Vector3.up;
+        Vector3 bloodPos = transform.position + new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
+        BloodParticleSystemHandler.Instance.SpawnBlood(bloodPos, bloodDir);
         health -= 5;
     }
 }

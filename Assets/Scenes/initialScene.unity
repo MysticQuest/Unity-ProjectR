@@ -677,6 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c912775e320a18c4dad09dc9203ed90f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveVelocity: {fileID: 0}
 --- !u!114 &499153037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1166,6 +1167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  velocityVector: {x: 0, y: 0, z: 0}
 --- !u!114 &576133877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4543,13 +4545,14 @@ GameObject:
   - component: {fileID: 2126083346}
   - component: {fileID: 2126083345}
   - component: {fileID: 2126083344}
+  - component: {fileID: 2126083348}
   m_Layer: 0
-  m_Name: MeshParticleSystem
+  m_Name: BloodParticleSystemHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2126083344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4642,6 +4645,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2126083348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126083343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 742008f2431c9464f9069499c44398d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveVelocity: {fileID: 0}
 --- !u!213 &2127203835
 Sprite:
   m_ObjectHideFlags: 0
