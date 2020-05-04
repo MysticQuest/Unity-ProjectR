@@ -20,13 +20,13 @@ public class Target : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Damage();
-        Debug.Log("Collided with Object");
+        Debug.Log("Object Collision");
     }
 
     private void OnParticleCollision(GameObject other)
     {
         Damage();
-        Debug.Log("Collided with Particle");
+        Debug.Log("Particle Collision");
     }
 
 

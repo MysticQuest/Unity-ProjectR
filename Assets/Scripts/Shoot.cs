@@ -27,13 +27,17 @@ public class Shoot : MonoBehaviour
 
     private void Awake()
     {
+        animControl = GetComponent<AnimationControl>();
+
         if (!gunEndPointTransform)
         {
             gunEndPointTransform = transform.Find("aim/endPoint");
         }
 
-        animControl = GetComponent<AnimationControl>();
-        bulletFX = transform.Find("aim/gun/bulletFX").GetComponent<ParticleSystem>();
+        if (!bulletFX)
+        {
+            bulletFX = transform.Find("aim/gun/bulletFX").GetComponent<ParticleSystem>();
+        }
 
         if (EnableCrosshair)
         {
