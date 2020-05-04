@@ -75,7 +75,7 @@ public class MeshParticleSystem : MonoBehaviour
     private void PlayerShoot_OnShoot(object sender, Shoot.OnShootEventArgs e)
     {
         Vector3 quadPosition = e.gunEndPointPosition;
-        Vector3 quadSize = new Vector3(.5f, 1f);
+        Vector3 quadSize = new Vector3(.6f, .6f);
         float rotation = 0f;
 
         int uvIndex = UnityEngine.Random.Range(0, 8);
@@ -84,8 +84,8 @@ public class MeshParticleSystem : MonoBehaviour
         FunctionUpdater.Create(() =>
         {
             quadPosition += new Vector3(1, 1) * Time.deltaTime;
-            quadSize += new Vector3(1, 1) * Time.deltaTime;
-            rotation += 360f * Time.deltaTime;
+            // quadSize += new Vector3(1, 1) * Time.deltaTime;
+            // rotation += 360f * Time.deltaTime;
             UpdateQuad(spawnedQuadIndex, quadPosition, rotation, quadSize, true, uvIndex);
         });
     }
