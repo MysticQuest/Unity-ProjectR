@@ -24,8 +24,6 @@ public class MeshParticleSystem : MonoBehaviour
         public Vector2 uv11;
     }
 
-    [SerializeField] private Shoot playerShoot;
-
     [SerializeField] private ParticleUVPixels[] particleUVPixelsArray;
     private UVCoords[] uvCoordsArray;
 
@@ -44,8 +42,6 @@ public class MeshParticleSystem : MonoBehaviour
         vertices = new Vector3[4 * MAX_QUAD_AMOUNT];
         uv = new Vector2[4 * MAX_QUAD_AMOUNT];
         triangles = new int[6 * MAX_QUAD_AMOUNT];
-
-        playerShoot.OnShoot += PlayerShoot_OnShoot;
 
         mesh.vertices = vertices;
         mesh.uv = uv;
@@ -72,25 +68,7 @@ public class MeshParticleSystem : MonoBehaviour
         uvCoordsArray = uvCoordsList.ToArray();
     }
 
-    private void PlayerShoot_OnShoot(object sender, Shoot.OnShootEventArgs e)
-    {
-        Vector3 quadPosition = e.gunEndPointPosition;
-        Vector3 quadSize = new Vector3(.6f, .6f);
-        float rotation = 0f;
-
-        int uvIndex = UnityEngine.Random.Range(0, 8);
-        int spawnedQuadIndex = AddQuad(quadPosition, rotation, quadSize, true, uvIndex);
-
-        FunctionUpdater.Create(() =>
-        {
-            quadPosition += new Vector3(1, 1) * Time.deltaTime;
-            // quadSize += new Vector3(1, 1) * Time.deltaTime;
-            // rotation += 360f * Time.deltaTime;
-            UpdateQuad(spawnedQuadIndex, quadPosition, rotation, quadSize, true, uvIndex);
-        });
-    }
-
-    private int AddQuad(Vector3 position, float rotation, Vector3 quadSize, bool skewed, int uvIndex)
+    public int AddQuad(Vector3 position, float rotation, Vector3 quadSize, bool skewed, int uvIndex)
     {
         if (quadIndex >= MAX_QUAD_AMOUNT) return 0; //mesh full
 

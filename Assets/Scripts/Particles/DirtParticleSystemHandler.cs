@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShellParticleSystemHandler : MonoBehaviour
+public class DirtParticleSystemHandler : MonoBehaviour
 {
     public static ShellParticleSystemHandler Instance { get; private set; }
 
