@@ -55,7 +55,7 @@ public class Shoot : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            animControl.isShooting();
+            animControl.IsShooting();
 
             OnShoot?.Invoke(this, new OnShootEventArgs
             {

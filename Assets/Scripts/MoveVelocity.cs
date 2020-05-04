@@ -6,14 +6,11 @@ public class MoveVelocity : MonoBehaviour, IMoveVector
 {
     [SerializeField] private float moveSpeed = 5f;
 
-    private AnimationControl animControl;
-
-    private Vector3 velocityVector;
+    public Vector3 velocityVector;
     private Rigidbody2D rbody;
 
     private void Awake()
     {
-        animControl = GetComponent<AnimationControl>();
         rbody = GetComponent<Rigidbody2D>();
     }
 
@@ -25,7 +22,6 @@ public class MoveVelocity : MonoBehaviour, IMoveVector
     private void FixedUpdate()
     {
         MovePhysics();
-        DetectMovement();
     }
 
     private void MovePhysics()
@@ -33,17 +29,13 @@ public class MoveVelocity : MonoBehaviour, IMoveVector
         rbody.velocity = velocityVector * moveSpeed;
     }
 
-    // for idle and movement animations
-
-    private void DetectMovement()
+    public Vector3 GetPosition()
     {
-        if (velocityVector != Vector3.zero)
-        {
-            animControl.isMoving();
-        }
-        else
-        {
-            animControl.isIdle();
-        }
+        return this.transform.position;
+    }
+
+    public Vector3 GetDirection()
+    {
+        return velocityVector;
     }
 }

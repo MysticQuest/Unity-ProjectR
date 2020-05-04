@@ -35,6 +35,10 @@ public class MeshParticleSystem : MonoBehaviour
 
     private int quadIndex;
 
+    private bool updateVertices;
+    private bool updateUV;
+    private bool updateTriangles;
+
     private void Awake()
     {
         mesh = new Mesh();
@@ -46,6 +50,7 @@ public class MeshParticleSystem : MonoBehaviour
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
+        mesh.bounds = new Bounds(Vector3.zero, Vector3.one * 10000f);
 
         GetComponent<MeshFilter>().mesh = mesh;
 
@@ -122,10 +127,45 @@ public class MeshParticleSystem : MonoBehaviour
         triangles[tIndex + 4] = vIndex2;
         triangles[tIndex + 5] = vIndex3;
 
-        mesh.vertices = vertices;
-        mesh.uv = uv;
-        mesh.triangles = triangles;
+        updateVertices = true;
+        updateUV = true;
+        updateTriangles = true;
 
         mesh.RecalculateBounds();
+    }
+
+    public void DestroyQuad(int quadIndex)
+    {
+        int vIndex = quadIndex * 4;
+        int vIndex0 = vIndex;
+        int vIndex1 = vIndex + 1;
+        int vIndex2 = vIndex + 2;
+        int vIndex3 = vIndex + 3;
+
+        vertices[vIndex0] = Vector3.zero;
+        vertices[vIndex1] = Vector3.zero;
+        vertices[vIndex2] = Vector3.zero;
+        vertices[vIndex3] = Vector3.zero;
+
+        updateVertices = true;
+    }
+
+    private void LateUpdate()
+    {
+        if (updateVertices)
+        {
+            mesh.vertices = vertices;
+            updateVertices = false;
+        }
+        if (updateUV)
+        {
+            mesh.uv = uv;
+            updateUV = false;
+        }
+        if (updateTriangles)
+        {
+            mesh.triangles = triangles;
+            updateTriangles = false;
+        }
     }
 }

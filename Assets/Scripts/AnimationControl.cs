@@ -9,6 +9,8 @@ public class AnimationControl : MonoBehaviour
     private Animator charAnimator;
     private Animator aimAnimator;
 
+    public bool isMoving; //move this elsewhere at some point
+
     private void Awake()
     {
         if (!objectThatAims)
@@ -20,17 +22,19 @@ public class AnimationControl : MonoBehaviour
         aimAnimator = objectThatAims.GetComponent<Animator>();
     }
 
-    public void isMoving()
+    public void IsMoving()
     {
         charAnimator.SetBool("isMoving", true);
+        isMoving = true;
     }
 
-    public void isIdle()
+    public void IsIdle()
     {
         charAnimator.SetBool("isMoving", false);
+        isMoving = false;
     }
 
-    public void isShooting()
+    public void IsShooting()
     {
         aimAnimator.SetTrigger("Shoot");
     }

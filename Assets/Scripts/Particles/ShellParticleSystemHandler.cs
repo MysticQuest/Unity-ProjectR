@@ -7,24 +7,24 @@ public class ShellParticleSystemHandler : MonoBehaviour
     public static ShellParticleSystemHandler Instance { get; private set; }
 
     private MeshParticleSystem meshParticleSystem;
-    private List<SingleShell> singleShellList;
+    private List<Single> singleList;
 
     private void Awake()
     {
         Instance = this;
-        singleShellList = new List<SingleShell>();
+        singleList = new List<Single>();
         meshParticleSystem = GetComponent<MeshParticleSystem>();
     }
 
     private void Update()
     {
-        for (int i = 0; i < singleShellList.Count; i++)
+        for (int i = 0; i < singleList.Count; i++)
         {
-            SingleShell singleShell = singleShellList[i];
-            singleShell.Update();
-            if (singleShell.StoppedMoving())
+            Single single = singleList[i];
+            single.Update();
+            if (single.StoppedMoving())
             {
-                singleShellList.RemoveAt(i);
+                singleList.RemoveAt(i);
                 i--;
             }
         }
@@ -32,10 +32,10 @@ public class ShellParticleSystemHandler : MonoBehaviour
 
     public void SpawnShell(Vector3 position, Vector3 direction)
     {
-        singleShellList.Add(new SingleShell(position, direction, meshParticleSystem));
+        singleList.Add(new Single(position, direction, meshParticleSystem));
     }
 
-    private class SingleShell
+    private class Single
     {
         private MeshParticleSystem meshParticleSystem;
         private Vector3 position;
@@ -45,15 +45,15 @@ public class ShellParticleSystemHandler : MonoBehaviour
         private float rotation;
         private float moveSpeed;
 
-        public SingleShell(Vector3 position, Vector3 direction, MeshParticleSystem meshParticleSystem)
+        public Single(Vector3 position, Vector3 direction, MeshParticleSystem meshParticleSystem)
         {
             this.position = position;
             this.direction = direction;
             this.meshParticleSystem = meshParticleSystem;
 
-            quadSize = new Vector3(.05f, .1f);
+            quadSize = new Vector3(.04f, .08f);
             rotation = Random.Range(0, 360f);
-            moveSpeed = Random.Range(4f, 6f);
+            moveSpeed = Random.Range(6f, 14f);
 
             quadIndex = meshParticleSystem.AddQuad(position, rotation, quadSize, true, 0);
         }
@@ -65,7 +65,7 @@ public class ShellParticleSystemHandler : MonoBehaviour
 
             meshParticleSystem.UpdateQuad(quadIndex, position, rotation, quadSize, true, 0);
 
-            float slowdownFactor = 3.5f;
+            float slowdownFactor = 10f;
             moveSpeed -= moveSpeed * slowdownFactor * Time.deltaTime;
         }
 

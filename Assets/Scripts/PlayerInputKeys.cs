@@ -11,8 +11,6 @@ public class PlayerInputKeys : MonoBehaviour
     float moveX = 0f;
     float moveY = 0f;
 
-    private bool isMoving;
-
     private void Awake()
     {
         moveInterface = GetComponent<IMoveVector>();
@@ -23,6 +21,7 @@ public class PlayerInputKeys : MonoBehaviour
     private void Update()
     {
         Move();
+        DetectMovement();
     }
 
     private void Move()
@@ -35,4 +34,20 @@ public class PlayerInputKeys : MonoBehaviour
 
         moveInterface.SetVector(moveVector, Vector3.zero);
     }
+
+    // for idle and movement animations
+
+    private void DetectMovement()
+    {
+        if (moveVector != Vector3.zero)
+        {
+            animControl.IsMoving();
+        }
+        else
+        {
+            animControl.IsIdle();
+        }
+    }
+
+    //note: could get rid of update and use events
 }
