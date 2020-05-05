@@ -9,18 +9,11 @@ public class BloodParticleSystemHandler : MonoBehaviour
     private MeshParticleSystem meshParticleSystem;
     private List<Single> singleList;
 
-    [SerializeField] private MoveVelocity moveVelocity;
-
     private void Awake()
     {
         Instance = this;
         singleList = new List<Single>();
         meshParticleSystem = GetComponent<MeshParticleSystem>();
-
-        if (!moveVelocity)
-        {
-            moveVelocity = GameObject.Find("Player").GetComponent<MoveVelocity>();
-        }
     }
 
     private void Update()
@@ -37,9 +30,9 @@ public class BloodParticleSystemHandler : MonoBehaviour
         }
     }
 
-    public void SpawnBlood(Vector3 position, Vector3 direction)
+    public void SpawnBlood(Vector3 position, Vector3 direction, Vector3 quadSize, float moveSpeed, float rotation, int uvIndex)
     {
-        singleList.Add(new Single(position, direction, meshParticleSystem, moveVelocity));
+        singleList.Add(new Single(position, direction, quadSize, moveSpeed, rotation, uvIndex, meshParticleSystem));
     }
 
     private class Single
@@ -53,16 +46,21 @@ public class BloodParticleSystemHandler : MonoBehaviour
         private float rotation;
         private int uvIndex;
 
-        public Single(Vector3 position, Vector3 direction, MeshParticleSystem meshParticleSystem, MoveVelocity moveVelocity)
+        public Single(Vector3 position, Vector3 direction, Vector3 quadSize, float moveSpeed, float rotation, int uvIndex, MeshParticleSystem meshParticleSystem)
         {
+            // quadSize = new Vector3(.4f, .4f);
+            // moveSpeed = Random.Range(10f, 20f);
+            // rotation = Random.Range(0, 360f);
+            // uvIndex = Random.Range(0, 8);
+
             this.position = position;
             this.direction = direction;
-            this.meshParticleSystem = meshParticleSystem;
+            this.quadSize = quadSize;
+            this.moveSpeed = moveSpeed;
+            this.rotation = rotation;
+            this.uvIndex = uvIndex;
 
-            quadSize = new Vector3(.4f, .4f);
-            moveSpeed = Random.Range(10f, 20f);
-            rotation = Random.Range(0, 360f);
-            uvIndex = Random.Range(0, 8);
+            this.meshParticleSystem = meshParticleSystem;
 
             quadIndex = meshParticleSystem.AddQuad(position, rotation, quadSize, true, uvIndex);
         }

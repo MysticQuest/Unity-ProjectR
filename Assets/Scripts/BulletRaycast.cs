@@ -26,7 +26,7 @@ public static class BulletRaycast
             Target target = raycastHit2D.collider.GetComponent<Target>();
             if (target)
             {
-                target.Damage();
+                // target.Damage();
             }
         }
     }
