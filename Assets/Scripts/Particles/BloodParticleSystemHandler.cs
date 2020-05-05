@@ -59,8 +59,8 @@ public class BloodParticleSystemHandler : MonoBehaviour
             this.direction = direction;
             this.meshParticleSystem = meshParticleSystem;
 
-            quadSize = new Vector3(.3f, .3f);
-            moveSpeed = Random.Range(15f, 30f);
+            quadSize = new Vector3(.4f, .4f);
+            moveSpeed = Random.Range(10f, 20f);
             rotation = Random.Range(0, 360f);
             uvIndex = Random.Range(0, 8);
 
@@ -74,7 +74,7 @@ public class BloodParticleSystemHandler : MonoBehaviour
 
             meshParticleSystem.UpdateQuad(quadIndex, position, rotation, quadSize, true, uvIndex);
 
-            float slowdownFactor = 20f;
+            float slowdownFactor = 15f;
             moveSpeed -= moveSpeed * slowdownFactor * Time.deltaTime;
         }
 
