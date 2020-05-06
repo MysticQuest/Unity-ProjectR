@@ -30,9 +30,9 @@ public class BloodParticleSystemHandler : MonoBehaviour
         }
     }
 
-    public void SpawnBlood(Vector3 position, Vector3 direction, Vector3 quadSize, float moveSpeed, float rotation, int uvIndex)
+    public void SpawnBlood(Vector3 position, Vector3 direction, Vector3 quadSize, bool onObject, bool isPooling, float moveSpeed, float rotation, int uvIndex)
     {
-        singleList.Add(new Single(position, direction, quadSize, moveSpeed, rotation, uvIndex, meshParticleSystem));
+        singleList.Add(new Single(position, direction, quadSize, onObject, isPooling, moveSpeed, rotation, uvIndex, meshParticleSystem));
     }
 
     private class Single
@@ -46,7 +46,11 @@ public class BloodParticleSystemHandler : MonoBehaviour
         private float rotation;
         private int uvIndex;
 
-        public Single(Vector3 position, Vector3 direction, Vector3 quadSize, float moveSpeed, float rotation, int uvIndex, MeshParticleSystem meshParticleSystem)
+        //experimental
+        private bool onObject;
+        private bool isPooling;
+
+        public Single(Vector3 position, Vector3 direction, Vector3 quadSize, bool onObject, bool isPooling, float moveSpeed, float rotation, int uvIndex, MeshParticleSystem meshParticleSystem)
         {
             // quadSize = new Vector3(.4f, .4f);
             // moveSpeed = Random.Range(10f, 20f);
@@ -67,13 +71,25 @@ public class BloodParticleSystemHandler : MonoBehaviour
 
         public void Update()
         {
-            position += direction * Time.deltaTime * moveSpeed;
-            rotation += 360f * (moveSpeed / 10f) * Time.deltaTime;
+            if (onObject == true)
+            {
 
-            meshParticleSystem.UpdateQuad(quadIndex, position, rotation, quadSize, true, uvIndex);
+                meshParticleSystem.UpdateQuad(quadIndex, position, rotation, quadSize, true, uvIndex);
+            }
+            else
+            {
+                position += direction * Time.deltaTime * moveSpeed;
+                rotation += 360f * (moveSpeed / 10f) * Time.deltaTime;
+                if (moveSpeed < 2.5f)
+                {
+                    quadSize *= 1.008f;
+                }
 
-            float slowdownFactor = 15f;
-            moveSpeed -= moveSpeed * slowdownFactor * Time.deltaTime;
+                meshParticleSystem.UpdateQuad(quadIndex, position, rotation, quadSize, true, uvIndex);
+
+                float slowdownFactor = 20f;
+                moveSpeed -= moveSpeed * slowdownFactor * Time.deltaTime;
+            }
         }
 
         public bool StoppedMoving()

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeshParticleSystem : MonoBehaviour
+public class MeshParticleSystemLocal : MonoBehaviour
 {
     private const int MAX_QUAD_AMOUNT = 15000;
 
@@ -49,7 +49,7 @@ public class MeshParticleSystem : MonoBehaviour
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
-        mesh.bounds = new Bounds(Vector3.zero, Vector3.one * 10000f);
+        mesh.bounds = new Bounds(Vector3.zero - transform.position, Vector3.zero - transform.position);
 
         GetComponent<MeshFilter>().mesh = mesh;
 
@@ -130,7 +130,7 @@ public class MeshParticleSystem : MonoBehaviour
         updateUV = true;
         updateTriangles = true;
 
-        mesh.RecalculateBounds();
+        // mesh.RecalculateBounds();
     }
 
     public void DestroyQuad(int quadIndex)
@@ -147,6 +147,11 @@ public class MeshParticleSystem : MonoBehaviour
         vertices[vIndex3] = Vector3.zero;
 
         updateVertices = true;
+    }
+
+    private void Update()
+    {
+
     }
 
     private void LateUpdate()

@@ -8,16 +8,21 @@ public class Target : MonoBehaviour
     // public BloodPresets bloodPreset;  
 
     public int health = 100;
+
+    private Rigidbody2D rbody;
+    public Vector3 rbodyVelocity;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        rbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        // rbodyVelocity = rbody.velocity;
+        rbodyVelocity = transform.position;
     }
 
     // private void OnCollisionEnter(Collision other)
@@ -34,6 +39,7 @@ public class Target : MonoBehaviour
         int test = ps.GetCollisionEvents(this.gameObject, collisionEvents);
         Vector3 pointOfHit = collisionEvents[0].intersection;
         Vector3 splatterDir = (pointOfHit - other.transform.position).normalized;
+
         Damage(pointOfHit, splatterDir);
         Debug.Log("Particle Collision at " + pointOfHit);
     }
@@ -47,14 +53,22 @@ public class Target : MonoBehaviour
         Vector3 bloodDir = Quaternion.Euler(0, 0, bloodRotation) * -Vector3.up;
         Vector3 bloodDirCol = splatterDir * 5f;
         Vector3 quadSize = new Vector3(.4f, .4f);
-        float moveSpeed = Random.Range(20f, 40f);
+        Vector3 woundQuadSize = new Vector3(.1f, .1f);
+        float moveSpeed = Random.Range(30f, 60f);
         float rotation = Random.Range(0, 360f);
         int uvIndex = Random.Range(0, 8);
-        Vector3 bloodPos = pointOfHit + new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
 
-        // BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, Vector3.zero, quadSize, 0f, rotation, uvIndex);
+        Vector3 pointOfHitLocal = transform.InverseTransformPoint(pointOfHit);
+        // Vector3 bloodPos = pointOfHit + new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
 
-        BloodParticleSystemHandler.Instance.SpawnBlood(bloodPos, splatterDir, quadSize, moveSpeed, rotation, uvIndex);
+        //blood wound
+        WoundParticleSystemHandler.Instance.SpawnWound(pointOfHitLocal, Vector3.zero, woundQuadSize, false, 0f, rotation, uvIndex);
+
+        //blood pool
+        // BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, Vector3.zero, quadSize, false, true, 0f, rotation, uvIndex);
+
+        // blood splatter
+        BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, splatterDir, quadSize, false, false, moveSpeed, rotation, uvIndex);
 
         //Scriptable Object test
         // BloodParticleSystemHandler.Instance.SpawnBlood(bloodPos, bloodPreset.direction, bloodPreset.quadSize, bloodPreset.moveSpeed, bloodPreset.rotation, bloodPreset.uvIndex);

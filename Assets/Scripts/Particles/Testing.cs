@@ -42,7 +42,6 @@ public class Testing : MonoBehaviour
         {
             if (animControl.isMoving)
             {
-                //increase size on vertical movement to improve the effect
                 DirtParticleSystemHandler.Instance.SpawnDirt(moveVelocity.GetPosition() + new Vector3(0, -.5f), moveVelocity.GetDirection() * -1f);
                 nextSpawnDirtTime = Time.time + .05f;
             }
