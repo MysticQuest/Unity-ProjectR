@@ -9,6 +9,7 @@ public class ShootEffect : MonoBehaviour
 {
     [SerializeField] private Shoot playerShoot;
     [SerializeField] private Material weaponTracerMaterial;
+    private ParticleSystem ps;
 
     public enum TraceOption
     {
@@ -45,6 +46,10 @@ public class ShootEffect : MonoBehaviour
         else
         {
             playerShoot.bulletFX.Emit(1);
+
+            //colision rendering workaround problem
+            var psCollision = playerShoot.bulletFX.collision;
+            psCollision.enabled = true;
         }
     }
 

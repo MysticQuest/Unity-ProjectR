@@ -9803,5 +9803,37 @@ PrefabInstance:
       propertyPath: moveWithCustomTransform
       value: 
       objectReference: {fileID: 576133875}
+    - target: {fileID: 6486161812503094215, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
+      propertyPath: TrailModule.worldSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486161812503094215, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
+      propertyPath: TrailModule.textureMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486161812503094215, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
+      propertyPath: CollisionModule.m_Dampen.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486161812503094215, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486161812503094215, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
+      propertyPath: CollisionModule.maxKillSpeed
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486161812503094215, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486161812503094215, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6486161812503094215, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 661d279cb1c3ed64c9c35a0bd1f9079a, type: 3}
