@@ -79,10 +79,11 @@ public class BloodParticleSystemHandler : MonoBehaviour
             else
             {
                 position += direction * Time.deltaTime * moveSpeed;
-                rotation += 360f * (moveSpeed / 10f) * Time.deltaTime;
+                rotation += 360f * (moveSpeed / 4f) * Time.deltaTime;
                 if (moveSpeed < 2.5f)
                 {
-                    quadSize *= 1.008f;
+                    float poolingFactor = Random.Range(1.0075f, 1.00085f);
+                    quadSize *= poolingFactor;
                 }
 
                 meshParticleSystem.UpdateQuad(quadIndex, position, rotation, quadSize, true, uvIndex);

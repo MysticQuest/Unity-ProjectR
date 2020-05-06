@@ -6,14 +6,22 @@ public class WoundParticleSystemHandler : MonoBehaviour
 {
     public static WoundParticleSystemHandler Instance { get; private set; }
 
-    private MeshParticleSystemLocal meshParticleSystemLocal;
+    private MeshRenderer meshRenderer;
+    [SerializeField] private string sortingLayer;
+    [SerializeField] private int sortingOrder;
+
+    private MeshParticleSystem meshParticleSystem;
     private List<Single> singleList;
 
     private void Awake()
     {
         Instance = this;
         singleList = new List<Single>();
-        meshParticleSystemLocal = GetComponent<MeshParticleSystemLocal>();
+        meshParticleSystem = GetComponent<MeshParticleSystem>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.sortingLayerName = sortingLayer;
+        meshRenderer.sortingOrder = sortingOrder;
+        // meshRenderer.material.SetColor("_alphaColor", new Color(105, 0, 0, 90));
     }
 
     private void Update()
@@ -32,12 +40,12 @@ public class WoundParticleSystemHandler : MonoBehaviour
 
     public void SpawnWound(Vector3 position, Vector3 direction, Vector3 quadSize, bool isPooling, float moveSpeed, float rotation, int uvIndex)
     {
-        singleList.Add(new Single(position, direction, quadSize, isPooling, moveSpeed, rotation, uvIndex, meshParticleSystemLocal));
+        singleList.Add(new Single(position, direction, quadSize, isPooling, moveSpeed, rotation, uvIndex, meshParticleSystem));
     }
 
     private class Single
     {
-        private MeshParticleSystemLocal meshParticleSystemLocal;
+        private MeshParticleSystem meshParticleSystem;
         private Vector3 position;
         private Vector3 direction;
         private int quadIndex;
@@ -49,7 +57,7 @@ public class WoundParticleSystemHandler : MonoBehaviour
         //experimental
         private bool isPooling;
 
-        public Single(Vector3 position, Vector3 direction, Vector3 quadSize, bool isPooling, float moveSpeed, float rotation, int uvIndex, MeshParticleSystemLocal meshParticleSystemLocal)
+        public Single(Vector3 position, Vector3 direction, Vector3 quadSize, bool isPooling, float moveSpeed, float rotation, int uvIndex, MeshParticleSystem meshParticleSystem)
         {
             // quadSize = new Vector3(.4f, .4f);
             // moveSpeed = Random.Range(10f, 20f);
@@ -63,21 +71,21 @@ public class WoundParticleSystemHandler : MonoBehaviour
             this.rotation = rotation;
             this.uvIndex = uvIndex;
 
-            this.meshParticleSystemLocal = meshParticleSystemLocal;
+            this.meshParticleSystem = meshParticleSystem;
 
-            quadIndex = meshParticleSystemLocal.AddQuad(position, rotation, quadSize, true, uvIndex);
+            quadIndex = meshParticleSystem.AddQuad(position, rotation, quadSize, true, uvIndex);
         }
 
         public void Update()
         {
             position += direction * Time.deltaTime * moveSpeed;
             rotation += 360f * (moveSpeed / 10f) * Time.deltaTime;
-            if (moveSpeed < 2.5f)
+            if (moveSpeed < 3f)
             {
                 quadSize *= 1.008f;
             }
 
-            meshParticleSystemLocal.UpdateQuad(quadIndex, position, rotation, quadSize, true, uvIndex);
+            meshParticleSystem.UpdateQuad(quadIndex, position, rotation, quadSize, true, uvIndex);
 
             float slowdownFactor = 20f;
             moveSpeed -= moveSpeed * slowdownFactor * Time.deltaTime;

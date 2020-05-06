@@ -41,7 +41,7 @@ public class Target : MonoBehaviour
         Vector3 splatterDir = (pointOfHit - other.transform.position).normalized;
 
         Damage(pointOfHit, splatterDir);
-        Debug.Log("Particle Collision at " + pointOfHit);
+        // Debug.Log("Particle Collision at " + pointOfHit);
     }
 
 
@@ -53,13 +53,23 @@ public class Target : MonoBehaviour
         Vector3 bloodDir = Quaternion.Euler(0, 0, bloodRotation) * -Vector3.up;
         Vector3 bloodDirCol = splatterDir * 5f;
         Vector3 quadSize = new Vector3(.4f, .4f);
-        Vector3 woundQuadSize = new Vector3(.1f, .1f);
+        Vector3 woundQuadSize = new Vector3(.3f, .3f);
         float moveSpeed = Random.Range(30f, 60f);
         float rotation = Random.Range(0, 360f);
         int uvIndex = Random.Range(0, 8);
 
+
         Vector3 pointOfHitLocal = transform.InverseTransformPoint(pointOfHit);
-        // Vector3 bloodPos = pointOfHit + new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f));
+        if (pointOfHitLocal.x > 0)
+        {
+            pointOfHitLocal.x -= Random.Range(.05f, .2f);
+        }
+        else { pointOfHitLocal.x += Random.Range(.05f, .2f); }
+        if (pointOfHitLocal.y > 0)
+        {
+            pointOfHitLocal.y -= Random.Range(.05f, .2f);
+        }
+        else { pointOfHitLocal.y += Random.Range(.05f, .2f); }
 
         //blood wound
         WoundParticleSystemHandler.Instance.SpawnWound(pointOfHitLocal, Vector3.zero, woundQuadSize, false, 0f, rotation, uvIndex);
@@ -69,8 +79,5 @@ public class Target : MonoBehaviour
 
         // blood splatter
         BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, splatterDir, quadSize, false, false, moveSpeed, rotation, uvIndex);
-
-        //Scriptable Object test
-        // BloodParticleSystemHandler.Instance.SpawnBlood(bloodPos, bloodPreset.direction, bloodPreset.quadSize, bloodPreset.moveSpeed, bloodPreset.rotation, bloodPreset.uvIndex);
     }
 }
