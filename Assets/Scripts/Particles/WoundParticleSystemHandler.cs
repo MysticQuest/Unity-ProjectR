@@ -85,10 +85,16 @@ public class WoundParticleSystemHandler : MonoBehaviour
                 quadSize *= 1.008f;
             }
 
+
+            float poolingFactor = Random.Range(1.0075f, 1.00085f);
+            quadSize *= poolingFactor;
+
             meshParticleSystem.UpdateQuad(quadIndex, position, rotation, quadSize, true, uvIndex);
 
-            float slowdownFactor = 20f;
-            moveSpeed -= moveSpeed * slowdownFactor * Time.deltaTime;
+            // float slowdownFactor = 20f;
+            // moveSpeed -= moveSpeed * slowdownFactor * Time.deltaTime;
+
+
         }
 
         public bool StoppedMoving()

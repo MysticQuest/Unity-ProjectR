@@ -35,11 +35,7 @@ public class Target : MonoBehaviour
         Vector3 pointOfHit = collisionEvents[0].intersection;
         Vector3 splatterDir = (pointOfHit - other.transform.position).normalized;
 
-        bloodSplatterVollume = Random.Range(1, 10); //remember to make it damage-depended
-        for (int i = 0; i <= bloodSplatterVollume; i++)
-        {
-            Damage(pointOfHit, splatterDir);
-        }
+        Damage(pointOfHit, splatterDir);
 
         Debug.Log("Particle Collision at " + pointOfHit);
     }
@@ -49,15 +45,52 @@ public class Target : MonoBehaviour
     {
         health -= 5;
 
-        float bloodRotation = Random.Range(-45f, 45f);
-        Vector3 bloodDir = Quaternion.Euler(0, 0, bloodRotation) * -Vector3.up;
-        Vector3 bloodDirCol = splatterDir * 5f;
+        int bloodVollumeDir = Random.Range(15, 25);
+        int bloodVollumeFloor = Random.Range(3, 6);
+        int bloodVollumeWound = Random.Range(7, 14);
+
+        for (int i = 0; i <= bloodVollumeDir; i++)
+        {
+            GenerateBloodDir(pointOfHit, splatterDir);
+        }
+        for (int i = 0; i <= bloodVollumeFloor; i++)
+        {
+            GenerateBloodFloor(pointOfHit);
+        }
+        for (int i = 0; i <= bloodVollumeWound; i++)
+        {
+            GenerateBloodStain(pointOfHit);
+        }
+    }
+
+    void GenerateBloodDir(Vector3 pointOfHit, Vector3 splatterDir)
+    {
+        Vector3 bloodDirDir = splatterDir + AddNoiseOnAngle(-5, 5);
         Vector3 quadSize = new Vector3(.4f, .4f);
-        Vector3 woundQuadSize = new Vector3(.3f, .3f);
-        float moveSpeed = Random.Range(30f, 80f);
+        float moveSpeed = Random.Range(40f, 100f);
         float rotation = Random.Range(0, 360f);
         int uvIndex = Random.Range(0, 8);
 
+        BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, bloodDirDir, quadSize, false, false, moveSpeed, rotation, uvIndex);
+    }
+
+    void GenerateBloodFloor(Vector3 pointOfHit)
+    {
+        float moveSpeed = Random.Range(40f, 100f);
+        float rotation = Random.Range(0, 360f);
+        int uvIndex = Random.Range(0, 8);
+        Vector3 quadSize = new Vector3(.4f, .4f);
+        float bloodRotationFloor = Random.Range(-45f, 45f);
+        Vector3 bloodDirFloor = Quaternion.Euler(0, 0, bloodRotationFloor) * -Vector3.up * .2f;
+
+        BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, bloodDirFloor, quadSize, false, false, moveSpeed, rotation, uvIndex);
+    }
+
+    void GenerateBloodStain(Vector3 pointOfHit)
+    {
+        float rotation = Random.Range(0, 360f);
+        Vector3 woundQuadSize = new Vector3(.3f, .3f);
+        int uvIndex = Random.Range(0, 8);
 
         Vector3 pointOfHitLocal = transform.InverseTransformPoint(pointOfHit);
         if (pointOfHitLocal.x > 0)
@@ -73,11 +106,21 @@ public class Target : MonoBehaviour
 
         //blood wound
         WoundParticleSystemHandler.Instance.SpawnWound(pointOfHitLocal, Vector3.zero, woundQuadSize, false, 0f, rotation, uvIndex);
+    }
 
-        //blood pool
-        // BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, Vector3.zero, quadSize, false, true, 0f, rotation, uvIndex);
+    Vector3 AddNoiseOnAngle(float min, float max)
+    {
+        // Find random angle between min & max inclusive
+        float xNoise = Random.Range(min, max);
+        float yNoise = Random.Range(min, max);
+        float zNoise = Random.Range(min, max);
 
-        // blood splatter
-        BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, splatterDir, quadSize, false, false, moveSpeed, rotation, uvIndex);
+        // Convert Angle to Vector3
+        Vector3 noise = new Vector3(
+          Mathf.Sin(2 * Mathf.PI * xNoise / 360),
+          Mathf.Sin(2 * Mathf.PI * yNoise / 360),
+          Mathf.Sin(2 * Mathf.PI * zNoise / 360)
+        );
+        return noise;
     }
 }

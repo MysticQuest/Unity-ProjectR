@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Occluder" {
+﻿Shader "Custom/Occluder" {
     SubShader {
         Tags { "Queue" = "Geometry-1" }
         ColorMask 0 
