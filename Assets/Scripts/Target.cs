@@ -46,7 +46,7 @@ public class Target : MonoBehaviour
         health -= 5;
 
         int bloodVollumeDir = Random.Range(15, 25);
-        int bloodVollumeFloor = Random.Range(3, 6);
+        int bloodVollumeFloor = Random.Range(2, 5);
         int bloodVollumeWound = Random.Range(7, 14);
 
         for (int i = 0; i <= bloodVollumeDir; i++)
@@ -80,8 +80,8 @@ public class Target : MonoBehaviour
         float rotation = Random.Range(0, 360f);
         int uvIndex = Random.Range(0, 8);
         Vector3 quadSize = new Vector3(.4f, .4f);
-        float bloodRotationFloor = Random.Range(-45f, 45f);
-        Vector3 bloodDirFloor = Quaternion.Euler(0, 0, bloodRotationFloor) * -Vector3.up * .2f;
+        float bloodRotationFloor = Random.Range(-35f, 35f);
+        Vector3 bloodDirFloor = Quaternion.Euler(0, 0, bloodRotationFloor) * -Vector3.up * .25f;
 
         BloodParticleSystemHandler.Instance.SpawnBlood(pointOfHit, bloodDirFloor, quadSize, false, false, moveSpeed, rotation, uvIndex);
     }
